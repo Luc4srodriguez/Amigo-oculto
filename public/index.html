@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amigo Oculto</title>
+    <title>Amigo Oculto Premium</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -15,41 +15,49 @@
     <div id="auth-screen" class="auth-container">
         <div class="auth-card fade-in">
             <div class="logo-area">
-                <i class="fa-solid fa-gift fa-3x brand-color"></i>
+                <i class="fa-solid fa-gift fa-4x brand-color"></i>
                 <h1>Amigo Oculto</h1>
-                <p>Organize seu sorteio de forma simples e elegante.</p>
+                <p>A forma mais elegante de sortear.</p>
             </div>
 
             <div class="tabs">
-                <button onclick="toggleAuth('login')" id="tab-login" class="active">Login</button>
-                <button onclick="toggleAuth('cadastro')" id="tab-cad">Cadastro</button>
+                <button onclick="toggleAuth('login')" id="tab-login" class="active">Entrar</button>
+                <button onclick="toggleAuth('cadastro')" id="tab-cad">Criar Conta</button>
             </div>
             
-            <div id="form-login" class="form-group">
-                <div class="input-wrapper">
-                    <i class="fa-regular fa-user"></i>
-                    <input type="text" id="login-nome" placeholder="Seu Usuário">
+            <div id="form-login">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="login-nome" placeholder="Seu nome de usuário">
+                    </div>
                 </div>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="login-senha" placeholder="Sua Senha">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock-open"></i>
+                        <input type="password" id="login-senha" placeholder="Sua senha secreta">
+                    </div>
                 </div>
-                <button onclick="login()" id="btn-login" class="btn-primary">
-                    <span>Entrar</span>
+                <button onclick="login()" id="btn-login" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                    Entrar na Plataforma <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
 
-            <div id="form-cadastro" class="form-group" style="display:none">
-                <div class="input-wrapper">
-                    <i class="fa-regular fa-user"></i>
-                    <input type="text" id="cad-nome" placeholder="Escolha um Usuário">
+            <div id="form-cadastro" style="display:none">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="cad-nome" placeholder="Escolha seu usuário">
+                    </div>
                 </div>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="cad-senha" placeholder="Crie uma Senha">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="cad-senha" placeholder="Crie uma senha forte">
+                    </div>
                 </div>
-                <button onclick="cadastrar()" id="btn-cad" class="btn-primary">
-                    <span>Criar Conta</span>
+                <button onclick="cadastrar()" id="btn-cad" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                    Criar Minha Conta <i class="fa-solid fa-sparkles"></i>
                 </button>
             </div>
         </div>
@@ -65,7 +73,7 @@
                 <div class="avatar-circle">
                     <span id="avatar-initial">U</span>
                 </div>
-                <span id="user-name-display">...</span>
+                <span id="user-name-display" style="font-weight: 600;">...</span>
                 <button onclick="logout()" class="btn-icon" title="Sair">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
@@ -75,15 +83,15 @@
         <main class="content fade-in">
             <div class="welcome-banner">
                 <div>
-                    <h2>Meus Sorteios</h2>
-                    <p>Gerencie seus grupos ou entre em um novo.</p>
+                    <h2>Dashboard</h2>
+                    <p>Seus eventos e sorteios em um só lugar.</p>
                 </div>
                 <div class="actions-bar">
                     <button onclick="openModal('modal-novo')" class="btn-primary">
-                        <i class="fa-solid fa-plus"></i> Novo
+                        <i class="fa-solid fa-plus-circle"></i> Novo Sorteio
                     </button>
                     <button onclick="openModal('modal-entrar')" class="btn-outline">
-                        <i class="fa-solid fa-ticket"></i> Entrar com Código
+                        <i class="fa-solid fa-ticket-simple"></i> Usar Código
                     </button>
                 </div>
             </div>
@@ -96,50 +104,50 @@
     <div id="details-screen" style="display:none">
         <header class="app-header">
             <div class="header-left">
-                <button onclick="voltarDashboard()" class="btn-back">
-                    <i class="fa-solid fa-arrow-left"></i> Voltar
+                <button onclick="voltarDashboard()" class="btn-outline" style="border:none; padding-left:0;">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar ao Dashboard
                 </button>
             </div>
         </header>
 
-        <main class="content fade-in">
+        <main class="content fade-in" style="padding-top: 1rem;">
             <div class="detail-header">
                 <div>
-                    <h1 id="detail-title">...</h1>
-                    <span id="detail-status-badge" class="status-badge">...</span>
-                </div>
-                <div class="date-box">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span id="detail-date">--/--</span>
+                    <h1 id="detail-title" style="font-size: 2rem; font-weight: 800;">...</h1>
+                    <span id="detail-status-badge" class="status-badge" style="margin-left: 0; margin-top: 10px; display: inline-flex;">...</span>
                 </div>
             </div>
 
-            <div class="details-grid">
+            <div class="details-grid" style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; margin-top: 30px;">
                 <div class="left-col">
-                    <div class="detail-card highlight-card">
+                    <div class="card glass-effect" style="text-align: center;">
+                        <i class="fa-solid fa-share-nodes brand-color" style="font-size: 2rem; margin-bottom: 15px;"></i>
                         <h3>Código de Convite</h3>
-                        <div class="copy-box" onclick="copiarCodigo()">
-                            <span id="detail-code">...</span>
-                            <i class="fa-regular fa-copy"></i>
+                        <p style="color:var(--text-muted); margin-bottom: 15px;">Envie para seus amigos participarem.</p>
+                        <div class="copy-box" onclick="copiarCodigo()" style="background: rgba(0,0,0,0.3); border: 2px dashed var(--border-color); padding: 15px;">
+                            <span id="detail-code" style="font-size: 1.8rem; letter-spacing: 3px;">...</span>
+                            <i class="fa-regular fa-clone"></i>
                         </div>
-                        <p class="hint">Toque para copiar e envie aos amigos!</p>
+                    </div>
+                    
+                    <div class="card glass-effect" style="margin-top: 20px;">
+                         <h3 style="margin-bottom: 15px;"><i class="fa-regular fa-calendar-days brand-color"></i> Data do Evento</h3>
+                         <span id="detail-date" style="font-size: 1.2rem; font-weight: 600;">--/--</span>
                     </div>
 
-                    <div id="my-result-area" class="result-card" style="display: none;">
-                        <span class="label">🎁 Seu Amigo Oculto é:</span>
-                        <h2 id="result-name" class="reveal-text">???</h2>
+                    <div id="my-result-area" class="result-card" style="display: none; background: linear-gradient(135deg, var(--primary), #6020a0); padding: 30px;">
+                        <span class="label" style="font-weight: 600; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8;">🎁 Seu Amigo Oculto é</span>
+                        <h2 id="result-name" class="reveal-text" style="font-size: 2.5rem; margin-top: 15px;">???</h2>
                     </div>
                 </div>
 
                 <div class="right-col">
-                    <div class="detail-card">
-                        <div class="card-header-row">
-                            <h3>Participantes <span id="detail-count" class="badge-count">0</span></h3>
+                    <div class="card glass-effect">
+                        <div class="card-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);">
+                            <h3>Participantes <span id="detail-count" style="background: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 0.9rem;">0</span></h3>
+                            <div id="detail-actions"></div>
                         </div>
-                        
-                        <div id="detail-actions" class="action-area"></div>
-
-                        <div id="participants-list" class="participants-list"></div>
+                        <div id="participants-list" class="participants-list" style="max-height: 400px; overflow-y: auto;"></div>
                     </div>
                 </div>
             </div>
@@ -147,48 +155,66 @@
     </div>
 
     <div id="modal-novo" class="modal">
-        <div class="modal-content zoom-in">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3>Criar Sorteio</h3>
-                <button onclick="closeModal('modal-novo')" class="close-modal">&times;</button>
+                <h3><i class="fa-solid fa-sparkles brand-color"></i> Criar Novo Sorteio</h3>
+                <button onclick="closeModal('modal-novo')" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-heading"></i>
-                    <input type="text" id="new-title" placeholder="Título (ex: Natal da Família)">
+                <p class="hint">Preencha os dados do seu novo grupo.</p>
+                
+                <div class="input-group">
+                    <label class="input-label">Título do Evento</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-heading"></i>
+                        <input type="text" id="new-title" placeholder="Ex: Natal da Firma 2023">
+                    </div>
                 </div>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-align-left"></i>
-                    <input type="text" id="new-desc" placeholder="Descrição (ex: Valor R$50)">
+
+                <div class="input-group">
+                    <label class="input-label">Descrição / Regras</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-align-left" style="top: 20px;"></i>
+                        <textarea id="new-desc" rows="3" placeholder="Ex: Valor máximo R$50. Entrega dia 24." style="resize: none; height: auto;"></textarea>
+                    </div>
                 </div>
-                <label>Data do Sorteio</label>
-                <div class="input-wrapper">
-                    <input type="datetime-local" id="new-date">
+
+                <div class="input-group">
+                    <label class="input-label">Data e Hora Limite</label>
+                    <div class="input-wrapper">
+                        <input type="datetime-local" id="new-date">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button onclick="closeModal('modal-novo')" class="btn-text">Cancelar</button>
-                <button onclick="criarSorteio()" id="btn-create" class="btn-primary">Criar Sorteio</button>
+                <button onclick="criarSorteio()" id="btn-create" class="btn-primary">
+                    Confirmar Criação <i class="fa-solid fa-check"></i>
+                </button>
             </div>
         </div>
     </div>
 
     <div id="modal-entrar" class="modal">
-        <div class="modal-content zoom-in">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3>Entrar em um Grupo</h3>
-                <button onclick="closeModal('modal-entrar')" class="close-modal">&times;</button>
+                <h3><i class="fa-solid fa-ticket brand-color"></i> Entrar com Código</h3>
+                <button onclick="closeModal('modal-entrar')" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
-                <p>Digite o código que o organizador te enviou.</p>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-ticket"></i>
-                    <input type="text" id="invite-code" placeholder="Código (ex: X7Y2Z)" style="text-transform:uppercase; letter-spacing: 2px; font-weight: bold;">
+                <p class="hint">Insira o código de 6 dígitos que você recebeu.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-key fa-lg"></i>
+                        <input type="text" id="invite-code" placeholder="X7Y2Z9" style="font-size: 1.5rem; text-align: center; padding-left: 16px; letter-spacing: 4px; text-transform: uppercase; font-weight: 800;">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button onclick="closeModal('modal-entrar')" class="btn-text">Cancelar</button>
-                <button onclick="entrarSorteio()" id="btn-join" class="btn-primary">Entrar</button>
+                <button onclick="closeModal('modal-entrar')" class="btn-text">Fechar</button>
+                <button onclick="entrarSorteio()" id="btn-join" class="btn-primary">
+                    Validar e Entrar <i class="fa-solid fa-arrow-right"></i>
+                </button>
             </div>
         </div>
     </div>
