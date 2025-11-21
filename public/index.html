@@ -5,125 +5,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amigo Oculto</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <div id="toast-container"></div>
+
     <div id="auth-screen" class="auth-container">
-        <div class="auth-box">
-            <h1 style="color:#8257e5">🎁 Amigo Oculto</h1>
+        <div class="auth-card fade-in">
+            <div class="logo-area">
+                <i class="fa-solid fa-gift fa-3x brand-color"></i>
+                <h1>Amigo Oculto</h1>
+                <p>Organize seu sorteio de forma simples e elegante.</p>
+            </div>
+
             <div class="tabs">
                 <button onclick="toggleAuth('login')" id="tab-login" class="active">Login</button>
                 <button onclick="toggleAuth('cadastro')" id="tab-cad">Cadastro</button>
             </div>
             
-            <div id="form-login">
-                <input type="text" id="login-nome" placeholder="Seu Nome de Usuário">
-                <input type="password" id="login-senha" placeholder="Sua Senha">
-                <button onclick="login()">Entrar</button>
+            <div id="form-login" class="form-group">
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="login-nome" placeholder="Seu Usuário">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="login-senha" placeholder="Sua Senha">
+                </div>
+                <button onclick="login()" id="btn-login" class="btn-primary">
+                    <span>Entrar</span>
+                </button>
             </div>
 
-            <div id="form-cadastro" style="display:none">
-                <input type="text" id="cad-nome" placeholder="Escolha um Nome de Usuário">
-                <input type="password" id="cad-senha" placeholder="Crie uma Senha">
-                <button onclick="cadastrar()">Cadastrar</button>
+            <div id="form-cadastro" class="form-group" style="display:none">
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="cad-nome" placeholder="Escolha um Usuário">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="cad-senha" placeholder="Crie uma Senha">
+                </div>
+                <button onclick="cadastrar()" id="btn-cad" class="btn-primary">
+                    <span>Criar Conta</span>
+                </button>
             </div>
         </div>
     </div>
 
     <div id="app-screen" style="display:none">
         <header class="app-header">
-            <div class="logo"><span>🎁 Amigo Oculto</span></div>
+            <div class="logo">
+                <i class="fa-solid fa-gift brand-color"></i>
+                <span>Amigo Oculto</span>
+            </div>
             <div class="user-info">
+                <div class="avatar-circle">
+                    <span id="avatar-initial">U</span>
+                </div>
                 <span id="user-name-display">...</span>
-                <button onclick="logout()" class="btn-outline">Sair</button>
+                <button onclick="logout()" class="btn-icon" title="Sair">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
             </div>
         </header>
 
-        <main class="content">
-            <div class="actions-bar">
-                <button onclick="openModal('modal-novo')" class="btn-purple">+ Novo Sorteio</button>
-                <button onclick="openModal('modal-entrar')" class="btn-outline" style="margin-left: 10px;">Entrar com Código</button>
+        <main class="content fade-in">
+            <div class="welcome-banner">
+                <div>
+                    <h2>Meus Sorteios</h2>
+                    <p>Gerencie seus grupos ou entre em um novo.</p>
+                </div>
+                <div class="actions-bar">
+                    <button onclick="openModal('modal-novo')" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i> Novo
+                    </button>
+                    <button onclick="openModal('modal-entrar')" class="btn-outline">
+                        <i class="fa-solid fa-ticket"></i> Entrar com Código
+                    </button>
+                </div>
             </div>
 
-            <h2 class="section-title">Meus Sorteios</h2>
-            
             <div id="cards-container" class="cards-grid"></div>
+            <div id="loading-cards" class="loader" style="display:none"></div>
         </main>
     </div>
 
     <div id="details-screen" style="display:none">
         <header class="app-header">
             <div class="header-left">
-                <button onclick="voltarDashboard()" class="btn-back">← Voltar</button>
-                <h2 id="detail-title" style="margin:0; margin-left: 15px;">Carregando...</h2>
+                <button onclick="voltarDashboard()" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar
+                </button>
             </div>
         </header>
 
-        <main class="content">
-            <div class="detail-card">
-                <h3 class="card-title">Informações do Sorteio</h3>
-                
-                <div class="info-row">
-                    <div class="info-item">
-                        <span class="label">Data Limite</span>
-                        <span id="detail-date" class="value">--/--/----</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">Status</span>
-                        <span id="detail-status-badge" class="status-badge">...</span>
-                    </div>
+        <main class="content fade-in">
+            <div class="detail-header">
+                <div>
+                    <h1 id="detail-title">...</h1>
+                    <span id="detail-status-badge" class="status-badge">...</span>
                 </div>
-
-                <div class="info-row" style="margin-top: 20px;">
-                    <div class="info-item">
-                        <span class="label">Código de Convite</span>
-                        <span id="detail-code" class="value highlight-purple">...</span>
-                    </div>
-                </div>
-
-                <div id="my-result-area" style="margin-top: 20px; display: none; padding: 15px; background: rgba(130, 87, 229, 0.1); border-radius: 8px; border: 1px solid #8257e5;">
-                    <span class="label" style="color: #8257e5;">🎁 Você tirou:</span>
-                    <h2 id="result-name" style="color: white;">???</h2>
+                <div class="date-box">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span id="detail-date">--/--</span>
                 </div>
             </div>
 
-            <div class="detail-card">
-                <div class="card-header-row">
-                    <div>
-                        <h3 class="card-title">Participantes</h3>
-                        <span id="detail-count" class="subtitle">0 participante(s)</span>
-                    </div>
-                    <div id="detail-actions">
+            <div class="details-grid">
+                <div class="left-col">
+                    <div class="detail-card highlight-card">
+                        <h3>Código de Convite</h3>
+                        <div class="copy-box" onclick="copiarCodigo()">
+                            <span id="detail-code">...</span>
+                            <i class="fa-regular fa-copy"></i>
                         </div>
+                        <p class="hint">Toque para copiar e envie aos amigos!</p>
+                    </div>
+
+                    <div id="my-result-area" class="result-card" style="display: none;">
+                        <span class="label">🎁 Seu Amigo Oculto é:</span>
+                        <h2 id="result-name" class="reveal-text">???</h2>
+                    </div>
                 </div>
 
-                <div id="participants-list" class="participants-list"></div>
+                <div class="right-col">
+                    <div class="detail-card">
+                        <div class="card-header-row">
+                            <h3>Participantes <span id="detail-count" class="badge-count">0</span></h3>
+                        </div>
+                        
+                        <div id="detail-actions" class="action-area"></div>
+
+                        <div id="participants-list" class="participants-list"></div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
 
     <div id="modal-novo" class="modal">
-        <div class="modal-content">
-            <h3>Criar Novo Sorteio</h3>
-            <input type="text" id="new-title" placeholder="Título (ex: Natal da Família)">
-            <input type="text" id="new-desc" placeholder="Descrição (ex: Valor R$50)">
-            <label style="color:#aaa; font-size:0.8rem">Data Limite:</label>
-            <input type="datetime-local" id="new-date">
-            <div class="modal-actions">
-                <button onclick="closeModal('modal-novo')" class="btn-outline">Cancelar</button>
-                <button onclick="criarSorteio()" class="btn-purple">Criar</button>
+        <div class="modal-content zoom-in">
+            <div class="modal-header">
+                <h3>Criar Sorteio</h3>
+                <button onclick="closeModal('modal-novo')" class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-heading"></i>
+                    <input type="text" id="new-title" placeholder="Título (ex: Natal da Família)">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-align-left"></i>
+                    <input type="text" id="new-desc" placeholder="Descrição (ex: Valor R$50)">
+                </div>
+                <label>Data do Sorteio</label>
+                <div class="input-wrapper">
+                    <input type="datetime-local" id="new-date">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('modal-novo')" class="btn-text">Cancelar</button>
+                <button onclick="criarSorteio()" id="btn-create" class="btn-primary">Criar Sorteio</button>
             </div>
         </div>
     </div>
 
     <div id="modal-entrar" class="modal">
-        <div class="modal-content">
-            <h3>Entrar em um Sorteio</h3>
-            <input type="text" id="invite-code" placeholder="Código (ex: X7Y2Z)">
-            <div class="modal-actions">
-                <button onclick="closeModal('modal-entrar')" class="btn-outline">Cancelar</button>
-                <button onclick="entrarSorteio()" class="btn-purple">Entrar</button>
+        <div class="modal-content zoom-in">
+            <div class="modal-header">
+                <h3>Entrar em um Grupo</h3>
+                <button onclick="closeModal('modal-entrar')" class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Digite o código que o organizador te enviou.</p>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-ticket"></i>
+                    <input type="text" id="invite-code" placeholder="Código (ex: X7Y2Z)" style="text-transform:uppercase; letter-spacing: 2px; font-weight: bold;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('modal-entrar')" class="btn-text">Cancelar</button>
+                <button onclick="entrarSorteio()" id="btn-join" class="btn-primary">Entrar</button>
             </div>
         </div>
     </div>
